@@ -1,10 +1,13 @@
 # Gravity Forms + WCP Taxonomies Term Names #
 Requires at least: 4.1
-Tested up to: 4.8.3
+Tested up to: 4.9.1
 
 Display WCP Taxonomy term name instead of id's on summary page.
 
 ## Changelog ##
+
+### 1.0.0.3 ###
+1. Add plugin update checker script.
 
 ### 1.0.0.2 ###
 1. Improve displaying of WCP taxonomy names condition.

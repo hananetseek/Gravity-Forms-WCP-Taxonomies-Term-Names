@@ -3,12 +3,16 @@
  * Plugin Name: 	Gravity Forms + WCP Taxonomies Term Names
  * Plugin URI: 		https://www.netseek.com.au/
  * Description: 	Display WCP Taxonomy term name instead of id's on summary page.
- * Version: 		1.0.0.2
+ * Version: 		1.0.0.3
  * Author: 			Netseek Pty Ltd
  * Author URI: 		https://www.netseek.com.au/
  * License:    		GPL2
  * License URI:		https://www.gnu.org/licenses/gpl-2.0.html
  */
+if ( ! defined( 'WPINC' ) ) { die(); }
+
+if( !defined('GFWCP_TAX_NAMES_BASE_DIR') ) { define('GFWCP_TAX_NAMES_BASE_DIR', dirname(__FILE__)); }
+if( !defined('GFWCP_TAX_NAMES_BASE_URL') ) { define('GFWCP_TAX_NAMES_BASE_URL', plugins_url( '', __FILE__ ) ); }
 
 function gfwcp_taxonomy_names_enqueue(){
     if ( wcp_has_gform() === true ) {
@@ -140,3 +144,26 @@ function wcp_get_gf_id( $matches ){
 			return $params;        
 	}
 }
+
+/*
+ * Plugin Updater.
+ *
+ * @since 1.0.0.3
+ */
+require_once( GFWCP_TAX_NAMES_BASE_DIR . '/vendor/plugin-update-checker/plugin-update-checker.php' );
+
+/**
+ * Check for plugin updates.
+ * 
+ * @since 1.0.0.3
+ */
+function wcp_check_plugin_updates() {
+	$ndf_UpdateChecker = Puc_v4_Factory::buildUpdateChecker(
+		'https://github.com/hananetseek/Gravity-Forms-WCP-Taxonomies-Term-Names',
+		__FILE__,
+		'gravity-forms-wcp-taxonomies-terms'
+	);
+
+	$ndf_UpdateChecker->setBranch('master');
+}
+add_action( 'admin_init', 'wcp_check_plugin_updates' );
